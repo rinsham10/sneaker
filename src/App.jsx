@@ -137,7 +137,7 @@ function App() {
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60" />
                   <img 
-                    src="/images/featureimages/suede.png" 
+                    src={`${import.meta.env.BASE_URL}images/featureimages/suede.png`} 
                     alt="Nike Dunk Suede Detail"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                   />
@@ -149,7 +149,7 @@ function App() {
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60" />
                   <img 
-                    src="/images/featureimages/foam.png" 
+                    src={`${import.meta.env.BASE_URL}images/featureimages/foam.png`} 
                     alt="Nike Dunk Foam Detail"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                   />

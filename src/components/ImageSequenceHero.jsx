@@ -26,7 +26,7 @@ const ImageSequenceHero = () => {
     for (let i = 1; i <= frameCount; i++) {
         const img = new Image();
         const frameIndex = String(i).padStart(3, '0');
-        img.src = `/images/herosection/ezgif-frame-${frameIndex}.png`;
+        img.src = `${import.meta.env.BASE_URL}images/herosection/ezgif-frame-${frameIndex}.png`;
         img.onload = () => {
             loadedCount++;
             setLoadProgress(Math.floor((loadedCount / frameCount) * 100));
