@@ -9,23 +9,25 @@ const ImageSequenceHero = () => {
   const [loadProgress, setLoadProgress] = useState(0);
   const [currentSection, setCurrentSection] = useState(0);
   const frameIndexValue = useMotionValue(0);
-  const frameCount = 240;
+  const frameCount = 48; // 240 / 5 = 48 frames total
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  // Milestones: Title (0), Clear (1), Features (2), Heel (3), Grip (4)
-  const milestones = [0, 10, 110, 180, 239];
+  // Recalibrated Milestones: Previous milestones (0, 10, 110, 180, 239) divided by 5
+  const milestones = [0, 2, 22, 36, 47];
 
   useEffect(() => {
     const loadedImages = [];
     let loadedCount = 0;
 
-    for (let i = 1; i <= frameCount; i++) {
+    for (let i = 0; i < frameCount; i++) {
         const img = new Image();
-        const frameIndex = String(i).padStart(3, '0');
+        // Load every 5th frame: 1, 6, 11, 16, 21, 26, etc.
+        const actualFrameNumber = (i * 5) + 1;
+        const frameIndex = String(actualFrameNumber).padStart(3, '0');
         img.src = `${import.meta.env.BASE_URL}images/herosection/ezgif-frame-${frameIndex}.png`;
         img.onload = () => {
             loadedCount++;
@@ -36,8 +38,14 @@ const ImageSequenceHero = () => {
                 renderFrame(0);
             }
         };
-        img.onerror = () => loadedCount++;
-        loadedImages[i-1] = img;
+        img.onerror = () => {
+          loadedCount++;
+          if (loadedCount === frameCount) {
+              setImages(loadedImages);
+              setLoading(false);
+          }
+        };
+        loadedImages[i] = img;
     }
   }, []);
 
